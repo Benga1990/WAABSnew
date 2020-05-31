@@ -15,14 +15,14 @@ namespace WAABSnew.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Your buying and selling property assistant.";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Please contact us if you have any questions.";
 
             return View();
         }
