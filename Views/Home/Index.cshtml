@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>WAABS</h1>
+    <p class="lead">WAABS is a free to use service to help assist with the buying and selling of properties.</p>
+    <p><a href="@Url.Action("Assistant", "Home")" class="btn btn-primary btn-lg">Get started &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>About Us</h2>
+        <p>
+            Find out more about how WAABS can make your buying and selling process easier.
+        </p>
+        <p><a class="btn btn-default" href="@Url.Action("About", "Home")">About &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Third-Parties</h2>
+        <p>
+            If you are an Estate Agent, Solicitor or Bank staff, click here to assist your clients
+            buying and selling process.
+        </p>
+        <p><a class="btn btn-default" href="@Url.Action("Index", "Third-Party")">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>WAABS Admin</h2>
+        <p>
+            WAABS Staff can sign in here to access all admin functions required to assist WAABS
+            customers.
+        </p>
+        <p><a class="btn btn-default" href="@Url.Action("Index", "Admin")">Sign in &raquo;</a></p>
+    </div>
+</div>
