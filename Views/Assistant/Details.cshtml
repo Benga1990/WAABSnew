@@ -1,0 +1,42 @@
+﻿@model WAABSnew.Models.AssistantModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>AssistantModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Confrimed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Confrimed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StageDetails)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StageDetails)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OtherUserConfirmed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OtherUserConfirmed)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

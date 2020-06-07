@@ -17,7 +17,7 @@ namespace WAABSnew.DataAccessLayer
         public DbSet<EstateAgentModel> EstateAgentModels { get; set; }
         public DbSet<SolicitorModel> SolicitorModels { get; set; }
         public DbSet<JobModel> JobModels { get; set; }
-
+        public DbSet<AssistantModel> AssistantModels { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();

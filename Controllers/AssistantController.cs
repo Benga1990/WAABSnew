@@ -9,117 +9,109 @@ using System.Web.Mvc;
 using WAABSnew.DataAccessLayer;
 using WAABSnew.Models;
 
-namespace WAABSnew.Controllers
+namespace WAABSnew
 {
-    public class EstateAgentModelsController : Controller
+    public class AssistantController : Controller
     {
         private WAABSContext db = new WAABSContext();
 
-        // GET: EstateAgentModels
+        // GET: Assistant
         public ActionResult Index()
         {
-            return View(db.EstateAgentModels.ToList());
+            return View(db.AssistantModels.ToList());
         }
 
-        // GET: EstateAgentModels/Details/5
+        // GET: Assistant/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EstateAgentModel estateAgentModel = db.EstateAgentModels.Find(id);
-            if (estateAgentModel == null)
+            AssistantModel assistantModel = db.AssistantModels.Find(id);
+            if (assistantModel == null)
             {
                 return HttpNotFound();
             }
-            return View(estateAgentModel);
+            return View(assistantModel);
         }
 
-        // GET: EstateAgentModels/Create
+        // GET: Assistant/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: EstateAgentModels/Create
+        // POST: Assistant/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,CompanyName,LastName,FirstName,JoinDate")] EstateAgentModel estateAgentModel)
+        public ActionResult Create([Bind(Include = "Id,Confrimed,StageDetails,OtherUserConfirmed")] AssistantModel assistantModel)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    db.EstateAgentModels.Add(estateAgentModel);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                ModelState.AddModelError("", "Unable to save changes.");
+                db.AssistantModels.Add(assistantModel);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
 
-            return View(estateAgentModel);
+            return View(assistantModel);
         }
 
-        // GET: EstateAgentModels/Edit/5
+        // GET: Assistant/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EstateAgentModel estateAgentModel = db.EstateAgentModels.Find(id);
-            if (estateAgentModel == null)
+            AssistantModel assistantModel = db.AssistantModels.Find(id);
+            if (assistantModel == null)
             {
                 return HttpNotFound();
             }
-            return View(estateAgentModel);
+            return View(assistantModel);
         }
 
-        // POST: EstateAgentModels/Edit/5
+        // POST: Assistant/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,CompanyName,LastName,FirstName,JoinDate")] EstateAgentModel estateAgentModel)
+        public ActionResult Edit([Bind(Include = "Id,Confrimed,StageDetails,OtherUserConfirmed")] AssistantModel assistantModel)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(estateAgentModel).State = EntityState.Modified;
+                db.Entry(assistantModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(estateAgentModel);
+            return View(assistantModel);
         }
 
-        // GET: EstateAgentModels/Delete/5
+        // GET: Assistant/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EstateAgentModel estateAgentModel = db.EstateAgentModels.Find(id);
-            if (estateAgentModel == null)
+            AssistantModel assistantModel = db.AssistantModels.Find(id);
+            if (assistantModel == null)
             {
                 return HttpNotFound();
             }
-            return View(estateAgentModel);
+            return View(assistantModel);
         }
 
-        // POST: EstateAgentModels/Delete/5
+        // POST: Assistant/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            EstateAgentModel estateAgentModel = db.EstateAgentModels.Find(id);
-            db.EstateAgentModels.Remove(estateAgentModel);
+            AssistantModel assistantModel = db.AssistantModels.Find(id);
+            db.AssistantModels.Remove(assistantModel);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

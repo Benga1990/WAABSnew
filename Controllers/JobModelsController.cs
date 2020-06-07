@@ -49,11 +49,19 @@ namespace WAABSnew.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,BuyerID,SellerID,BankID,EstateAgentID,SolicitorID")] JobModel jobModel)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.JobModels.Add(jobModel);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.JobModels.Add(jobModel);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                ModelState.AddModelError("", "Unable to save changes.");
             }
 
             return View(jobModel);

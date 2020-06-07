@@ -49,13 +49,20 @@ namespace WAABSnew.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,LastName,FirstName,JoinDate,InProcess")] SellerModel sellerModel)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.SellerModels.Add(sellerModel);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.SellerModels.Add(sellerModel);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                ModelState.AddModelError("", "Unable to save changes.");
+            }
             return View(sellerModel);
         }
 

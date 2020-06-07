@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
 using WAABSnew.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace WAABSnew.DataAccessLayer
 {
@@ -12,9 +13,9 @@ namespace WAABSnew.DataAccessLayer
         {
             var buyers = new List<BuyerModel>
             {
-                new BuyerModel{FirstName="Dave", LastName="Smith", JoinDate=DateTime.Parse("2020-01-01"), InProcess=false},
-                new BuyerModel{FirstName="Gen", LastName="Bodby", JoinDate=DateTime.Parse("2019-03-01"), InProcess=false},
-                new BuyerModel{FirstName="Steve", LastName="Jobs", JoinDate=DateTime.Parse("2020-04-01"), InProcess=false}
+                new BuyerModel{FirstName="Dave", LastName="Smith", JoinDate = DateTime.Parse("2020-02-01"), InProcess=false},
+                new BuyerModel{FirstName="Gen", LastName="Bodby",  JoinDate = DateTime.Parse("2020-02-01"), InProcess=false},
+                new BuyerModel{FirstName="Steve", LastName="Jobs", JoinDate = DateTime.Parse("2020-02-01"), InProcess=false}
             };
 
             buyers.ForEach(s => context.BuyerModels.Add(s));
@@ -58,6 +59,14 @@ namespace WAABSnew.DataAccessLayer
             };
 
             solicitors.ForEach(s => context.SolicitorModels.Add(s));
+            context.SaveChanges();
+
+            var assistants = new List<AssistantModel>
+            {
+                new AssistantModel{Confrimed = false, StageDetails = "Click edit to add your stage - to create additional stages, click Create New", OtherUserConfirmed = false},
+            };
+
+            assistants.ForEach(s => context.AssistantModels.Add(s));
             context.SaveChanges();
         }
     }

@@ -16,9 +16,28 @@ namespace WAABSnew.Controllers
         private WAABSContext db = new WAABSContext();
 
         // GET: BankModels
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
-            return View(db.BankModels.ToList());
+                ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+                ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+                var users = from s in db.BankModels
+                               select s;
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        users = users.OrderByDescending(s => s.LastName);
+                        break;
+                    case "Date":
+                        users = users.OrderBy(s => s.JoinDate);
+                        break;
+                    case "date_desc":
+                        users = users.OrderByDescending(s => s.JoinDate);
+                        break;
+                    default:
+                        users = users.OrderBy(s => s.LastName);
+                        break;
+                }
+                return View(db.BankModels.ToList());
         }
 
         // GET: BankModels/Details/5
@@ -49,11 +68,19 @@ namespace WAABSnew.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,CompanyName,LastName,FirstName,JoinDate")] BankModel bankModel)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.BankModels.Add(bankModel);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.BankModels.Add(bankModel);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                ModelState.AddModelError("", "Unable to save changes.");
             }
 
             return View(bankModel);

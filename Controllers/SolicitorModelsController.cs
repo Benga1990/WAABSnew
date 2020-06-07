@@ -49,11 +49,19 @@ namespace WAABSnew.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,CompanyName,LastName,FirstName,JoinDate")] SolicitorModel solicitorModel)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.SolicitorModels.Add(solicitorModel);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.SolicitorModels.Add(solicitorModel);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                ModelState.AddModelError("", "Unable to save changes.");
             }
 
             return View(solicitorModel);
